@@ -4,7 +4,6 @@
   'use strict';
   var btn = document.getElementById('share');
   if (!btn) return;
-  var label = btn.querySelector('span');
   var url = 'https://bimuti.com/';
   var canCopy = navigator.clipboard && window.isSecureContext;
   if (!navigator.share && !canCopy) return;
@@ -15,8 +14,8 @@
       return;
     }
     navigator.clipboard.writeText(url).then(function () {
-      label.textContent = 'Copied'; btn.setAttribute('aria-label', 'Link copied');
-      setTimeout(function () { label.textContent = 'Share'; btn.setAttribute('aria-label', 'Share Bimuti'); }, 2000);
+      btn.classList.add('copied'); btn.setAttribute('aria-label', 'Link copied');
+      setTimeout(function () { btn.classList.remove('copied'); btn.setAttribute('aria-label', 'Share Bimuti'); }, 2000);
     });
   });
 })();

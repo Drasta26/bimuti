@@ -27,6 +27,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="style.css">
     <script src="share.js" defer></script>
+    <script src="pema-gate.js" defer></script>
 </head>
 <body>
     <main>
@@ -37,7 +38,7 @@
                 </span>
                 <h1>Bimuti</h1>
                 <button type="button" id="share" aria-label="Share Bimuti" hidden>
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><span>Share</span>
+                    <svg class="i-share" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><svg class="i-done" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
                 </button>
             </header>
 
@@ -58,11 +59,11 @@
                 <span class="app-text"><b>RentUK</b><span>Property admin for UK landlords</span></span>
                 <span class="go">Open<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
             </a>
-            <div class="app soon" role="group" aria-label="PeMA: mindfulness, made personal. Coming soon.">
-                <img src="apps/pema.png" alt="" width="56" height="56">
+            <button type="button" class="app beta" id="pema-open" aria-haspopup="dialog" aria-label="PeMA beta: mindfulness, made personal. Needs a beta code.">
+                <span class="emoji-icon" aria-hidden="true">🧘</span>
                 <span class="app-text"><b>PeMA</b><span>Mindfulness, made personal</span></span>
-                <span class="tag">Soon</span>
-            </div>
+                <span class="tag beta-tag">Beta</span>
+            </button>
             <div class="app soon" role="group" aria-label="MedMan: medicines, managed safely, effectively and efficiently. Coming soon.">
                 <img src="apps/medman.svg" alt="" width="56" height="56">
                 <span class="app-text"><b>MedMan</b><span>Medicines, managed safely, effectively and efficiently</span></span>
@@ -75,5 +76,19 @@
             <p class="meaning">Bimuti comes from <i>vimukti</i> (<span lang="sa">विमुक्ति</span>): freedom.</p>
         </footer>
     </main>
+
+    <dialog id="pema-gate" aria-labelledby="gate-title">
+        <form id="gate-form" novalidate>
+            <span class="emoji-icon" aria-hidden="true">🧘</span>
+            <h2 id="gate-title">PeMA beta</h2>
+            <p class="gate-help" id="gate-help">Enter today's 6-digit beta code.</p>
+            <input id="gate-code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" spellcheck="false" aria-label="Beta code" aria-describedby="gate-help gate-msg">
+            <p class="gate-msg" id="gate-msg" role="alert"></p>
+            <div class="gate-actions">
+                <button type="button" class="gate-cancel" id="gate-cancel">Cancel</button>
+                <button type="submit" class="go gate-go">Open PeMA<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>
