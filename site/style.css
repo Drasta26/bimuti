@@ -167,6 +167,24 @@ a.app:focus-visible, button.app:focus-visible, #share:focus-visible, .gate-cance
 footer { text-align: center; display: grid; gap: 6px; justify-items: center; }
 .tagline { margin: 0; font-weight: 800; font-size: 1.05rem; color: var(--accent); letter-spacing: -0.01em; }
 .meaning { margin: 0; color: var(--muted); font-size: 0.85rem; }
+.links { margin: 0; display: flex; gap: 8px; align-items: center; font-size: 0.85rem; color: var(--muted); }
+.links a { color: var(--muted); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); padding: 4px 2px; }
+.links a:hover { color: var(--accent); }
+.links a:focus-visible, .doc a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* ---- Privacy page ---- */
+.doc { display: block; max-width: 640px; }
+.doc .brand { color: inherit; text-decoration: none; }
+.doc h1 { font-size: 2rem; letter-spacing: -0.03em; margin: 8px 0 8px; }
+.doc details { border-top: 1px solid var(--line); }
+.doc summary { cursor: pointer; padding: 12px 0; font-weight: 700; font-size: 1.05rem; color: var(--headline); min-height: 44px; box-sizing: border-box; }
+.doc summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.doc details p { margin: 0 0 12px; }
+.doc p { margin: 0 0 8px; line-height: 1.55; color: var(--text); }
+.doc .lead-in, .doc .updated { color: var(--muted); }
+.doc .updated { margin-top: 12px; font-size: 0.9rem; }
+.doc a:not(.brand):not(.go) { color: var(--headline); font-weight: 600; }
+.doc .go.home { margin: 12px 0 8px; display: inline-flex; }
 #share {
   margin-left: 2px; flex: none;
   display: inline-grid; place-items: center;
@@ -289,6 +307,9 @@ footer { animation-delay: 0.16s; }
   .app { min-height: 64px; padding: 8px 12px; }
   .app img, .app .emoji-icon { width: 44px; height: 44px; border-radius: 12px; font-size: 24px; }
   .app-text span { font-size: 0.8rem; }
+  main { gap: 8px; padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+  footer { gap: 0; }
+  .links a { padding: 2px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

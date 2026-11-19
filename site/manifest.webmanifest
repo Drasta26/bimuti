@@ -1,0 +1,16 @@
+{
+  "name": "Bimuti",
+  "short_name": "Bimuti",
+  "description": "Beautiful, Useful and Simple apps that never see your data.",
+  "lang": "en-GB",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff3ee",
+  "theme_color": "#fff3ee",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
