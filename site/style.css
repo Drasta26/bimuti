@@ -13,8 +13,8 @@
   --teal: #b23a1f;
   --brand-solid: linear-gradient(135deg, #ff6b4a, #e8458b 60%, #7a2a6e);
   --button: linear-gradient(120deg, #c63f26, #b0306a);
-  --glow-text: linear-gradient(100deg, #c63f26, #c92f72);
   --tag-bg: rgba(198, 63, 38, 0.10);
+  --headline: #5345e6; /* RentUK icon blue */
   --shadow: 0 18px 40px -24px rgba(42, 16, 54, 0.35);
   --radius: 24px;
 }
@@ -30,8 +30,8 @@
     --muted: #f3c9bd;
     --accent: #ffb547;
     --teal: #ffcd66;
-    --glow-text: linear-gradient(100deg, #ffcd66, #ff9b7d 50%, #f6aecb);
     --tag-bg: rgba(255, 255, 255, 0.12);
+    --headline: #b4adff;
     --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
   }
 }
@@ -73,7 +73,8 @@ main {
 
 /* ---- Brand and breathing logo ---- */
 .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
-.brand h1 { margin: 0; flex: 1; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
+/* Share sits right next to the name */
+.brand h1 { margin: 0; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
 .mark {
   width: 52px; height: 52px; border-radius: 16px; flex: none;
   display: grid; place-items: center;
@@ -93,17 +94,16 @@ main {
 /* ---- Hero ---- */
 .lead {
   margin: 0;
-  font-size: clamp(1.7rem, 7.6vw, 2.3rem);
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  /* Sleek and sharp: the device's own display fonts, nothing downloaded */
+  font-family: 'Avenir Next', 'SF Pro Display', -apple-system, 'Segoe UI Variable Display', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: clamp(1.08rem, 5.1vw, 1.4rem);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  color: var(--headline);
   text-wrap: balance;
 }
-.glow {
-  background: var(--glow-text);
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent;
-}
+.glow { font-weight: 700; letter-spacing: 0.04em; }
 .sub { margin: 14px 0 22px; font-size: 1.08rem; line-height: 1.45; color: var(--muted); max-width: 30ch; }
 
 .promise { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -149,6 +149,7 @@ footer { text-align: center; display: grid; gap: 6px; justify-items: center; }
 .tagline { margin: 0; font-weight: 800; font-size: 1.05rem; color: var(--accent); letter-spacing: -0.01em; }
 .meaning { margin: 0; color: var(--muted); font-size: 0.85rem; }
 #share {
+  margin-left: 4px;
   display: inline-flex; align-items: center; gap: 6px;
   min-height: 44px; padding: 0 16px 0 14px; border-radius: 999px;
   font: inherit; font-weight: 700; font-size: 0.9rem; color: var(--accent);
@@ -174,8 +175,7 @@ footer { animation-delay: 0.16s; }
     align-items: center;
     padding: 56px 48px 32px;
   }
-  .lead { font-size: 3.2rem; }
-  #share { position: fixed; top: 28px; right: 32px; }
+  .lead { font-size: 2rem; }
   .brand { margin-bottom: 36px; }
   .sub { font-size: 1.2rem; }
   .apps { gap: 14px; }
@@ -200,7 +200,7 @@ footer { animation-delay: 0.16s; }
   .brand h1 { font-size: 1.5rem; }
   .mark { width: 44px; height: 44px; border-radius: 14px; }
   .mark svg { width: 34px; height: 34px; }
-  .lead { font-size: 1.5rem; }
+  .lead { font-size: 1.04rem; }
   .sub { font-size: 1rem; margin: 8px 0 14px; }
   .promise li { font-size: 0.75rem; padding: 5px 8px 5px 7px; gap: 4px; }
   .promise svg { width: 13px; height: 13px; }
