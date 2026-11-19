@@ -1,0 +1,220 @@
+/* Bimuti home page. One screen on phones, calm motion, no outside fonts. */
+:root {
+  --bg: #f5f3ff;
+  --glow-1: rgba(91, 75, 214, 0.22);
+  --glow-2: rgba(15, 158, 142, 0.20);
+  --card: rgba(255, 255, 255, 0.72);
+  --card-hover: rgba(255, 255, 255, 0.92);
+  --line: rgba(46, 31, 122, 0.10);
+  --text: #160f3a;
+  --muted: #4a4470;
+  --accent: #3b2a8f;
+  --teal: #0a6b61;
+  --brand-solid: linear-gradient(135deg, #2e1f7a, #5b4bd6 55%, #0a6b61);
+  --glow-text: linear-gradient(100deg, #3b2a8f, #5b4bd6 45%, #0a7d70);
+  --shadow: 0 18px 40px -24px rgba(22, 15, 58, 0.45);
+  --radius: 24px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #110c2b;
+    --glow-1: rgba(108, 92, 255, 0.30);
+    --glow-2: rgba(20, 184, 166, 0.20);
+    --card: rgba(255, 255, 255, 0.07);
+    --card-hover: rgba(255, 255, 255, 0.12);
+    --line: rgba(255, 255, 255, 0.12);
+    --text: #f4f2ff;
+    --muted: #c4bfe6;
+    --accent: #cfc8ff;
+    --teal: #6ee7d6;
+    --glow-text: linear-gradient(100deg, #d9d3ff, #a99bff 45%, #6ee7d6);
+    --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
+  }
+}
+
+* { box-sizing: border-box; }
+html { height: 100%; -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+/* Soft aurora behind everything */
+body::before {
+  content: '';
+  position: fixed; inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(40% 35% at 18% 12%, var(--glow-1), transparent 70%),
+    radial-gradient(45% 40% at 90% 85%, var(--glow-2), transparent 70%);
+  animation: drift 24s ease-in-out infinite alternate;
+}
+@keyframes drift { to { transform: translate3d(3%, -2%, 0) scale(1.06); } }
+
+main {
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: calc(28px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* ---- Brand and breathing logo ---- */
+.brand { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+.brand h1 { margin: 0; flex: 1; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
+.mark {
+  width: 52px; height: 52px; border-radius: 16px; flex: none;
+  display: grid; place-items: center;
+  background: var(--brand-solid);
+  box-shadow: 0 12px 26px -12px rgba(59, 42, 143, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.mark svg { width: 40px; height: 40px; overflow: visible; }
+.mark .ring { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; }
+.mark .seed { fill: #fff; animation: breathe 10s ease-in-out infinite; transform-origin: 32px 16px; }
+/* Breathe in for 4 seconds, out for 6: the seed rises free, then settles */
+@keyframes breathe {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-5px) scale(1.12); }
+  100% { transform: translateY(0); }
+}
+
+/* ---- Hero ---- */
+.lead {
+  margin: 0;
+  font-size: clamp(2rem, 9vw, 2.6rem);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.glow {
+  background: var(--glow-text);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+.sub { margin: 14px 0 22px; font-size: 1.08rem; line-height: 1.45; color: var(--muted); max-width: 30ch; }
+
+.promise { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; }
+.promise li {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px 6px 8px; border-radius: 999px;
+  font-size: 0.8rem; font-weight: 700; color: var(--teal);
+  background: var(--card); border: 1px solid var(--line);
+}
+.promise svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- Apps ---- */
+.apps { display: grid; gap: 12px; }
+.label { margin: 0 0 2px 4px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.app {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 14px 14px 14px; min-height: 86px;
+  border-radius: var(--radius);
+  background: var(--card); border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: var(--shadow);
+  color: inherit; text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+a.app:hover { background: var(--card-hover); transform: translateY(-2px); }
+a.app:active { transform: scale(0.985); }
+a.app:focus-visible, #share:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.app img { border-radius: 15px; flex: none; }
+.app-text { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.app-text b { font-size: 1.1rem; letter-spacing: -0.01em; }
+.app-text span { color: var(--muted); font-size: 0.92rem; line-height: 1.3; }
+.go {
+  flex: none; display: inline-flex; align-items: center; gap: 2px;
+  min-height: 44px; padding: 0 12px 0 18px; border-radius: 999px;
+  background: var(--brand-solid); color: #fff; font-weight: 800; font-size: 0.98rem;
+  box-shadow: 0 8px 18px -8px rgba(59, 42, 143, 0.8);
+}
+.go svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.tag { flex: none; font-size: 0.8rem; font-weight: 700; color: var(--muted); padding: 6px 12px; border-radius: 999px; background: var(--line); }
+
+/* ---- Footer ---- */
+footer { text-align: center; display: grid; gap: 6px; justify-items: center; }
+.tagline { margin: 0; font-weight: 800; font-size: 1.05rem; color: var(--accent); letter-spacing: -0.01em; }
+.meaning { margin: 0; color: var(--muted); font-size: 0.85rem; }
+#share {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; padding: 0 16px 0 14px; border-radius: 999px;
+  font: inherit; font-weight: 700; font-size: 0.9rem; color: var(--accent);
+  background: var(--card); border: 1px solid var(--line); cursor: pointer;
+}
+#share[hidden] { display: none; }
+#share svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- Gentle entrance ---- */
+.hero, .apps, footer { animation: rise 0.7s cubic-bezier(.2, .7, .2, 1) both; }
+.apps { animation-delay: 0.08s; }
+footer { animation-delay: 0.16s; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+
+/* ---- Large screens: hero on the left, apps on the right ---- */
+@media (min-width: 900px) {
+  main {
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    grid-template-rows: 1fr auto;
+    column-gap: 72px; row-gap: 32px;
+    align-items: center;
+    padding: 56px 48px 32px;
+  }
+  .lead { font-size: 3.6rem; }
+  #share { position: fixed; top: 28px; right: 32px; }
+  .brand { margin-bottom: 36px; }
+  .sub { font-size: 1.2rem; }
+  .apps { gap: 14px; }
+  footer { grid-column: 1 / -1; }
+}
+
+/* Short phones: tighten spacing so everything stays on one screen */
+@media (max-height: 700px) and (max-width: 899px) {
+  main { padding-top: calc(18px + env(safe-area-inset-top)); gap: 16px; }
+  .brand { margin-bottom: 16px; }
+  .sub { margin: 10px 0 16px; }
+  .app { min-height: 78px; padding: 12px; }
+}
+
+/* Small phones (iPhone SE first generation and similar): compact but complete */
+@media (max-width: 360px) {
+  main { padding-left: 16px; padding-right: 16px; }
+  .brand { margin-bottom: 14px; }
+  .brand h1 { font-size: 1.5rem; }
+  .mark { width: 44px; height: 44px; border-radius: 14px; }
+  .mark svg { width: 34px; height: 34px; }
+  .lead { font-size: 1.85rem; }
+  .sub { font-size: 1rem; margin: 8px 0 14px; }
+  .promise li { font-size: 0.75rem; padding: 5px 8px 5px 7px; gap: 4px; }
+  .promise svg { width: 13px; height: 13px; }
+  .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .app { gap: 12px; padding: 10px 12px; min-height: 72px; }
+  .app img { width: 48px; height: 48px; border-radius: 13px; }
+  .app-text b { font-size: 1.02rem; }
+  .app-text span { font-size: 0.85rem; }
+  .go { padding: 0 10px 0 14px; font-size: 0.92rem; }
+}
+@media (max-width: 360px) and (max-height: 600px) {
+  main { gap: 12px; }
+  .meaning { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before { animation: none !important; transition: none !important; }
+}
+
+/* ---- Page not found ---- */
+.lost { justify-content: center; }
+.lost .brand { color: inherit; text-decoration: none; }
+.brand-name { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
+.go.home { margin-top: 8px; text-decoration: none; width: fit-content; }
