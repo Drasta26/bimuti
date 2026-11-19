@@ -11,7 +11,7 @@
   btn.hidden = false;
   btn.addEventListener('click', function () {
     if (navigator.share) {
-      navigator.share({ title: 'Bimuti', text: 'Beautiful, simple apps that never see your data.', url: url }).catch(function () {});
+      navigator.share({ title: 'Bimuti', text: 'Beautiful, Useful and Simple apps that never see your data.', url: url }).catch(function () {});
       return;
     }
     navigator.clipboard.writeText(url).then(function () {

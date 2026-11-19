@@ -1,33 +1,37 @@
 /* Bimuti home page. One screen on phones, calm motion, no outside fonts. */
 :root {
-  --bg: #f5f3ff;
-  --glow-1: rgba(91, 75, 214, 0.22);
-  --glow-2: rgba(15, 158, 142, 0.20);
-  --card: rgba(255, 255, 255, 0.72);
-  --card-hover: rgba(255, 255, 255, 0.92);
-  --line: rgba(46, 31, 122, 0.10);
-  --text: #160f3a;
-  --muted: #4a4470;
-  --accent: #3b2a8f;
-  --teal: #0a6b61;
-  --brand-solid: linear-gradient(135deg, #2e1f7a, #5b4bd6 55%, #0a6b61);
-  --glow-text: linear-gradient(100deg, #3b2a8f, #5b4bd6 45%, #0a7d70);
-  --shadow: 0 18px 40px -24px rgba(22, 15, 58, 0.45);
+  /* PeMA "Sunrise" palette: coral, gold, magenta, plum. All text checked at WCAG AA. */
+  --bg: #fff3ee;
+  --glow-1: rgba(255, 181, 71, 0.45);
+  --glow-2: rgba(232, 69, 139, 0.28);
+  --card: rgba(255, 255, 255, 0.78);
+  --card-hover: rgba(255, 255, 255, 0.94);
+  --line: rgba(198, 63, 38, 0.14);
+  --text: #26221f;
+  --muted: #6b4a3f;
+  --accent: #b23a1f;
+  --teal: #b23a1f;
+  --brand-solid: linear-gradient(135deg, #ff6b4a, #e8458b 60%, #7a2a6e);
+  --button: linear-gradient(120deg, #c63f26, #b0306a);
+  --glow-text: linear-gradient(100deg, #c63f26, #c92f72);
+  --tag-bg: rgba(198, 63, 38, 0.10);
+  --shadow: 0 18px 40px -24px rgba(42, 16, 54, 0.35);
   --radius: 24px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #110c2b;
-    --glow-1: rgba(108, 92, 255, 0.30);
-    --glow-2: rgba(20, 184, 166, 0.20);
-    --card: rgba(255, 255, 255, 0.07);
-    --card-hover: rgba(255, 255, 255, 0.12);
-    --line: rgba(255, 255, 255, 0.12);
-    --text: #f4f2ff;
-    --muted: #c4bfe6;
-    --accent: #cfc8ff;
-    --teal: #6ee7d6;
-    --glow-text: linear-gradient(100deg, #d9d3ff, #a99bff 45%, #6ee7d6);
+    --bg: #2a1036;
+    --glow-1: rgba(255, 107, 74, 0.32);
+    --glow-2: rgba(232, 69, 139, 0.30);
+    --card: rgba(255, 255, 255, 0.08);
+    --card-hover: rgba(255, 255, 255, 0.13);
+    --line: rgba(255, 255, 255, 0.14);
+    --text: #fff3ee;
+    --muted: #f3c9bd;
+    --accent: #ffb547;
+    --teal: #ffcd66;
+    --glow-text: linear-gradient(100deg, #ffcd66, #ff9b7d 50%, #f6aecb);
+    --tag-bg: rgba(255, 255, 255, 0.12);
     --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
   }
 }
@@ -74,7 +78,7 @@ main {
   width: 52px; height: 52px; border-radius: 16px; flex: none;
   display: grid; place-items: center;
   background: var(--brand-solid);
-  box-shadow: 0 12px 26px -12px rgba(59, 42, 143, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 26px -12px rgba(232, 69, 139, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .mark svg { width: 40px; height: 40px; overflow: visible; }
 .mark .ring { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; }
@@ -89,7 +93,7 @@ main {
 /* ---- Hero ---- */
 .lead {
   margin: 0;
-  font-size: clamp(2rem, 9vw, 2.6rem);
+  font-size: clamp(1.7rem, 7.6vw, 2.3rem);
   line-height: 1.08;
   font-weight: 800;
   letter-spacing: -0.035em;
@@ -134,11 +138,11 @@ a.app:focus-visible, #share:focus-visible { outline: 3px solid var(--accent); ou
 .go {
   flex: none; display: inline-flex; align-items: center; gap: 2px;
   min-height: 44px; padding: 0 12px 0 18px; border-radius: 999px;
-  background: var(--brand-solid); color: #fff; font-weight: 800; font-size: 0.98rem;
-  box-shadow: 0 8px 18px -8px rgba(59, 42, 143, 0.8);
+  background: var(--button); color: #fff; font-weight: 800; font-size: 0.98rem;
+  box-shadow: 0 8px 18px -8px rgba(201, 47, 114, 0.7);
 }
 .go svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.tag { flex: none; font-size: 0.8rem; font-weight: 700; color: var(--muted); padding: 6px 12px; border-radius: 999px; background: var(--line); }
+.tag { flex: none; font-size: 0.8rem; font-weight: 700; color: var(--muted); padding: 6px 12px; border-radius: 999px; background: var(--tag-bg); }
 
 /* ---- Footer ---- */
 footer { text-align: center; display: grid; gap: 6px; justify-items: center; }
@@ -170,7 +174,7 @@ footer { animation-delay: 0.16s; }
     align-items: center;
     padding: 56px 48px 32px;
   }
-  .lead { font-size: 3.6rem; }
+  .lead { font-size: 3.2rem; }
   #share { position: fixed; top: 28px; right: 32px; }
   .brand { margin-bottom: 36px; }
   .sub { font-size: 1.2rem; }
@@ -193,7 +197,7 @@ footer { animation-delay: 0.16s; }
   .brand h1 { font-size: 1.5rem; }
   .mark { width: 44px; height: 44px; border-radius: 14px; }
   .mark svg { width: 34px; height: 34px; }
-  .lead { font-size: 1.85rem; }
+  .lead { font-size: 1.5rem; }
   .sub { font-size: 1rem; margin: 8px 0 14px; }
   .promise li { font-size: 0.75rem; padding: 5px 8px 5px 7px; gap: 4px; }
   .promise svg { width: 13px; height: 13px; }
@@ -207,6 +211,9 @@ footer { animation-delay: 0.16s; }
 @media (max-width: 360px) and (max-height: 600px) {
   main { gap: 12px; }
   .meaning { display: none; }
+  .apps { gap: 8px; }
+  .app { min-height: 64px; padding: 8px 12px; }
+  .app img { width: 44px; height: 44px; border-radius: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
