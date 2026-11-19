@@ -187,7 +187,10 @@ footer { animation-delay: 0.16s; }
   main { padding-top: calc(18px + env(safe-area-inset-top)); gap: 16px; }
   .brand { margin-bottom: 16px; }
   .sub { margin: 10px 0 16px; }
-  .app { min-height: 78px; padding: 12px; }
+  .app { min-height: 78px; padding: 10px 12px; }
+  .apps { gap: 8px; }
+  .app-text { gap: 1px; }
+  .app-text span { font-size: 0.86rem; line-height: 1.25; }
 }
 
 /* Small phones (iPhone SE first generation and similar): compact but complete */
@@ -214,6 +217,7 @@ footer { animation-delay: 0.16s; }
   .apps { gap: 8px; }
   .app { min-height: 64px; padding: 8px 12px; }
   .app img { width: 44px; height: 44px; border-radius: 12px; }
+  .app-text span { font-size: 0.8rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
