@@ -25,6 +25,7 @@
   --aur-3: rgba(232, 69, 139, 0.30);
   --shine: #7b6ff5;
   --card-light: rgba(255, 181, 71, 0.28);
+  --silk-1: #ffd6a5; --silk-2: #ffb3c7; --silk-3: #c9c2ff; --silk-opacity: .55;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -48,7 +49,8 @@
     --aur-3: rgba(122, 42, 110, 0.85);
     --shine: #ffffff;
     --card-light: rgba(255, 124, 90, 0.20);
-    --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
+    --silk-1: #6b2a5e; --silk-2: #a8355f; --silk-3: #3a2a8a; --silk-opacity: .6;
+      --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
   }
 }
 
@@ -63,20 +65,35 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-/* ---- Living sunrise: three soft lights drifting on slow, different paths ---- */
-.aurora, .seeds { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-.aurora { overflow: hidden; }
+/* ---- Living scene: silk and light, moving slowly front and back ---- */
+.scene, .aurora:not(.layer) { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.layer { position: absolute; inset: -8%; will-change: transform; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
+.layer.l1 { transform: translate3d(calc(var(--px, 0) * 8px), calc(var(--py, 0) * 8px), 0); }
+.layer.l2 { transform: translate3d(calc(var(--px, 0) * -18px), calc(var(--py, 0) * -14px), 0); }
+
+/* 1. Silk: one soft colour field turning very slowly */
+.silk {
+  position: absolute; left: 50%; top: 45%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--silk-1), var(--silk-2), var(--silk-3), var(--silk-2), var(--silk-1));
+  -webkit-mask-image: radial-gradient(closest-side, transparent 0, rgba(0,0,0,.35) 14%, #000 34%, #000 46%, transparent 74%); mask-image: radial-gradient(closest-side, transparent 0, rgba(0,0,0,.35) 14%, #000 34%, #000 46%, transparent 74%);
+  opacity: var(--silk-opacity);
+  animation: turn 180s linear infinite;
+}
+@keyframes turn { to { transform: rotate(360deg); } }
+
+/* 2. Light orbs that come towards you and drift back */
 .aurora i {
   position: absolute; width: 75vmax; height: 75vmax; border-radius: 50%;
-  will-change: transform;
+  will-change: transform, opacity;
 }
-.aurora i:nth-child(1) { left: -30vmax; top: -32vmax; background: radial-gradient(closest-side, var(--aur-1), transparent); animation: drift-1 42s ease-in-out infinite alternate; }
-.aurora i:nth-child(2) { right: -34vmax; top: 10vh; background: radial-gradient(closest-side, var(--aur-2), transparent); animation: drift-2 57s ease-in-out infinite alternate; }
-.aurora i:nth-child(3) { left: -10vmax; bottom: -40vmax; background: radial-gradient(closest-side, var(--aur-3), transparent); animation: drift-3 71s ease-in-out infinite alternate; }
-@keyframes drift-1 { to { transform: translate3d(22vmax, 18vmax, 0) scale(1.15); } }
-@keyframes drift-2 { to { transform: translate3d(-26vmax, 14vmax, 0) scale(0.88); } }
-@keyframes drift-3 { to { transform: translate3d(18vmax, -24vmax, 0) scale(1.2); } }
-.seeds { z-index: -1; width: 100%; height: 100%; }
+.aurora i:nth-child(1) { left: -28vmax; top: -30vmax; background: radial-gradient(closest-side, var(--aur-1), transparent); animation: depth-1 34s ease-in-out infinite; }
+.aurora i:nth-child(2) { right: -32vmax; top: 12vh; background: radial-gradient(closest-side, var(--aur-2), transparent); animation: depth-2 46s ease-in-out infinite; }
+.aurora i:nth-child(3) { left: -8vmax; bottom: -38vmax; background: radial-gradient(closest-side, var(--aur-3), transparent); animation: depth-3 58s ease-in-out infinite; }
+@keyframes depth-1 { 0%, 100% { transform: translate3d(0, 0, 0) scale(.82); opacity: .75; } 50% { transform: translate3d(16vmax, 12vmax, 0) scale(1.28); opacity: 1; } }
+@keyframes depth-2 { 0%, 100% { transform: translate3d(0, 0, 0) scale(1.22); opacity: 1; } 50% { transform: translate3d(-20vmax, 10vmax, 0) scale(.8); opacity: .7; } }
+@keyframes depth-3 { 0%, 100% { transform: translate3d(0, 0, 0) scale(.9); opacity: .8; } 50% { transform: translate3d(14vmax, -20vmax, 0) scale(1.3); opacity: 1; } }
+
 
 main {
   min-height: 100vh;
@@ -352,7 +369,7 @@ footer { animation-delay: 0.16s; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .seeds { display: none; }
+  .layer { transition: none; transform: none !important; }
 }
 
 /* ---- Page not found ---- */
