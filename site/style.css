@@ -20,6 +20,11 @@
   --beta-bg: rgba(83, 69, 230, 0.10);
   --shadow: 0 18px 40px -24px rgba(42, 16, 54, 0.35);
   --radius: 24px;
+  --aur-1: rgba(255, 181, 71, 0.55);
+  --aur-2: rgba(255, 107, 74, 0.32);
+  --aur-3: rgba(232, 69, 139, 0.30);
+  --shine: #7b6ff5;
+  --card-light: rgba(255, 181, 71, 0.28);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -38,6 +43,11 @@
     --wordmark: linear-gradient(120deg, #ff7c5a, #ee6fa3 55%, #f6aecb);
     --beta: #c9c4ff;
     --beta-bg: rgba(180, 173, 255, 0.16);
+    --aur-1: rgba(255, 107, 74, 0.34);
+    --aur-2: rgba(232, 69, 139, 0.32);
+    --aur-3: rgba(122, 42, 110, 0.85);
+    --shine: #ffffff;
+    --card-light: rgba(255, 124, 90, 0.20);
     --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
   }
 }
@@ -53,17 +63,20 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-/* Soft aurora behind everything */
-body::before {
-  content: '';
-  position: fixed; inset: -20%;
-  z-index: -1;
-  background:
-    radial-gradient(40% 35% at 18% 12%, var(--glow-1), transparent 70%),
-    radial-gradient(45% 40% at 90% 85%, var(--glow-2), transparent 70%);
-  animation: drift 24s ease-in-out infinite alternate;
+/* ---- Living sunrise: three soft lights drifting on slow, different paths ---- */
+.aurora, .seeds { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.aurora { overflow: hidden; }
+.aurora i {
+  position: absolute; width: 75vmax; height: 75vmax; border-radius: 50%;
+  will-change: transform;
 }
-@keyframes drift { to { transform: translate3d(3%, -2%, 0) scale(1.06); } }
+.aurora i:nth-child(1) { left: -30vmax; top: -32vmax; background: radial-gradient(closest-side, var(--aur-1), transparent); animation: drift-1 42s ease-in-out infinite alternate; }
+.aurora i:nth-child(2) { right: -34vmax; top: 10vh; background: radial-gradient(closest-side, var(--aur-2), transparent); animation: drift-2 57s ease-in-out infinite alternate; }
+.aurora i:nth-child(3) { left: -10vmax; bottom: -40vmax; background: radial-gradient(closest-side, var(--aur-3), transparent); animation: drift-3 71s ease-in-out infinite alternate; }
+@keyframes drift-1 { to { transform: translate3d(22vmax, 18vmax, 0) scale(1.15); } }
+@keyframes drift-2 { to { transform: translate3d(-26vmax, 14vmax, 0) scale(0.88); } }
+@keyframes drift-3 { to { transform: translate3d(18vmax, -24vmax, 0) scale(1.2); } }
+.seeds { z-index: -1; width: 100%; height: 100%; }
 
 main {
   min-height: 100vh;
@@ -90,6 +103,16 @@ main {
   background: var(--brand-solid);
   box-shadow: 0 12px 26px -12px rgba(232, 69, 139, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
+.mark { position: relative; }
+.mark::after {
+  content: ''; position: absolute; inset: -5px; border-radius: 20px; pointer-events: none;
+  box-shadow: 0 0 0 0 rgba(255, 124, 90, 0);
+  animation: halo 10s ease-in-out infinite;
+}
+@keyframes halo {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 124, 90, 0); }
+  40% { box-shadow: 0 0 22px 6px rgba(255, 124, 90, 0.42); }
+}
 .mark svg { width: 40px; height: 40px; overflow: visible; }
 .mark .ring { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; }
 .mark .seed { fill: #fff; animation: breathe 10s ease-in-out infinite; transform-origin: 32px 16px; }
@@ -112,7 +135,14 @@ main {
   color: var(--headline);
   text-wrap: balance;
 }
-.glow { font-weight: 700; letter-spacing: 0.04em; }
+.glow {
+  font-weight: 700; letter-spacing: 0.04em;
+  background: linear-gradient(100deg, var(--headline) 42%, var(--shine) 50%, var(--headline) 58%);
+  background-size: 320% 100%; background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shine 10s ease-in-out 1.5s infinite;
+}
+@keyframes shine { 0%, 62% { background-position: 100% 0; } 100% { background-position: 0 0; } }
 .sub { margin: 14px 0 22px; font-size: 1.08rem; line-height: 1.45; color: var(--muted); max-width: 30ch; }
 
 .promise { margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; width: fit-content; text-decoration: none; border-radius: 16px; }
@@ -142,7 +172,10 @@ main {
   transition: transform 0.2s ease, background 0.2s ease;
 }
 button.app { width: 100%; font: inherit; text-align: left; cursor: pointer; }
-a.app:hover, button.app:hover { background: var(--card-hover); transform: translateY(-2px); }
+a.app:hover, button.app:hover {
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), var(--card-light), transparent 70%), var(--card-hover);
+  transform: translateY(-2px);
+}
 a.app:active, button.app:active { transform: scale(0.985); }
 a.app:focus-visible, button.app:focus-visible, #share:focus-visible, .gate-cancel:focus-visible, .gate-go:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .app img { border-radius: 15px; flex: none; }
@@ -318,7 +351,8 @@ footer { animation-delay: 0.16s; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before { animation: none !important; transition: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .seeds { display: none; }
 }
 
 /* ---- Page not found ---- */
