@@ -68,8 +68,26 @@ body {
 /* ---- Living scene: silk and light, moving slowly front and back ---- */
 .scene, .aurora:not(.layer) { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .layer { position: absolute; inset: -8%; will-change: transform; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
-.layer.l1 { transform: translate3d(calc(var(--px, 0) * 8px), calc(var(--py, 0) * 8px), 0); }
-.layer.l2 { transform: translate3d(calc(var(--px, 0) * -18px), calc(var(--py, 0) * -14px), 0); }
+.layer.l1 { transform: translate3d(calc(var(--px, 0) * 14px), calc(var(--py, 0) * 12px), 0); }
+.layer.l2 { transform: translate3d(calc(var(--px, 0) * -36px), calc(var(--py, 0) * -28px), 0); }
+
+/* Parallax: a slow, smooth "camera" glide. Every layer follows the same path at the same
+   pace, but the far layer travels a little and the near layer travels further, so the eye
+   reads depth. Same glide on every page. Movement only; colours unchanged. */
+.layer, .aurora:not(.layer) { animation: camera 44s linear infinite; }
+.aurora:not(.layer) { overflow: visible; } /* no hard edge while it glides */
+.layer.l1 { --amp: 2.4vmax; }
+.layer.l2, .aurora:not(.layer) { --amp: 7vmax; }
+@keyframes camera {
+  0%, 100% { translate: var(--amp) 0; }
+  12.5%    { translate: calc(var(--amp) * .707) calc(var(--amp) * .42); }
+  25%      { translate: 0 calc(var(--amp) * .6); }
+  37.5%    { translate: calc(var(--amp) * -.707) calc(var(--amp) * .42); }
+  50%      { translate: calc(var(--amp) * -1) 0; }
+  62.5%    { translate: calc(var(--amp) * -.707) calc(var(--amp) * -.42); }
+  75%      { translate: 0 calc(var(--amp) * -.6); }
+  87.5%    { translate: calc(var(--amp) * .707) calc(var(--amp) * -.42); }
+}
 
 /* 1. Silk: one soft colour field turning very slowly */
 .silk {
@@ -214,6 +232,8 @@ a.app:focus-visible, button.app:focus-visible, #share:focus-visible, .gate-cance
   background: var(--button); color: #fff; font-weight: 800; font-size: 0.98rem;
   box-shadow: 0 8px 18px -8px rgba(201, 47, 114, 0.7);
 }
+/* Open button on the app card: very light orange, dark text for easy reading */
+.app .go { background: #fde3c8; color: #7a3410; box-shadow: 0 6px 14px -8px rgba(122, 52, 16, 0.35); }
 .go svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .tag { flex: none; font-size: 0.8rem; font-weight: 700; color: var(--muted); padding: 6px 12px; border-radius: 999px; background: var(--tag-bg); }
 
@@ -370,6 +390,7 @@ footer { animation-delay: 0.16s; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .layer { transition: none; transform: none !important; }
+  .layer, .aurora { translate: none !important; }
 }
 
 /* ---- Page not found ---- */
