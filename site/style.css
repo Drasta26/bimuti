@@ -272,6 +272,12 @@ footer { text-align: center; display: grid; gap: 6px; justify-items: center; }
   background: var(--card); border: 1px solid var(--line); cursor: pointer;
 }
 #share[hidden] { display: none; }
+.contact {
+  flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px;
+  color: var(--accent); background: var(--card); border: 1px solid var(--line);
+  font-weight: 700; font-size: 0.95rem; text-decoration: none;
+}
+.contact:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 #share .i-done, #share.copied .i-share { display: none; }
 #share.copied .i-done { display: block; }
 #share svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -409,3 +415,9 @@ footer { animation-delay: 0.16s; }
 .gt { background: var(--tag-text); -webkit-background-clip: text; background-clip: text;
   color: transparent; -webkit-text-fill-color: transparent; }
 .go .gt { background-image: var(--btn-text); }
+
+/* Very narrow phones: keep share and Contact inside the side margin */
+@media (max-width: 340px) {
+  .brand { gap: 10px; }
+  .contact { padding: 0 12px; font-size: 0.9rem; }
+}
