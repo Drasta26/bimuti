@@ -71,16 +71,16 @@ body {
 /* ---- Living scene: silk and light, moving slowly front and back ---- */
 .scene, .aurora:not(.layer) { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .layer { position: absolute; inset: -8%; will-change: transform; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
-.layer.l1 { transform: translate3d(calc(var(--px, 0) * 14px), calc(var(--py, 0) * 12px), 0); }
-.layer.l2 { transform: translate3d(calc(var(--px, 0) * -36px), calc(var(--py, 0) * -28px), 0); }
+.layer.l1 { transform: translate3d(calc(var(--px, 0) * 34px), calc(var(--py, 0) * 28px), 0); }
+.layer.l2 { transform: translate3d(calc(var(--px, 0) * -90px), calc(var(--py, 0) * -70px), 0); }
 
 /* Parallax: a slow, smooth "camera" glide. Every layer follows the same path at the same
    pace, but the far layer travels a little and the near layer travels further, so the eye
    reads depth. Same glide on every page. Movement only; colours unchanged. */
 .layer, .aurora:not(.layer) { animation: camera 26s linear infinite, zoom 12s ease-in-out infinite alternate; }
 .aurora:not(.layer) { overflow: visible; } /* no hard edge while it glides */
-.layer.l1 { --amp: 9vmax; --zoom: 1.12; }
-.layer.l2, .aurora:not(.layer) { --amp: 22vmax; --zoom: 1.32; }
+.layer.l1 { --amp: 12vmax; --zoom: 1.14; animation-duration: 38s, 15s; }
+.layer.l2, .aurora:not(.layer) { --amp: 32vmax; --zoom: 1.4; }
 /* Front and back: near layer swells towards you more than the far one */
 @keyframes zoom { from { scale: 1; } to { scale: var(--zoom); } }
 @keyframes camera {
@@ -273,10 +273,13 @@ footer { text-align: center; display: grid; gap: 6px; justify-items: center; }
 }
 #share[hidden] { display: none; }
 .contact {
-  flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px;
+  margin-left: 2px; flex: none; display: inline-grid; place-items: center;
+  width: 44px; height: 44px; padding: 0; border-radius: 999px;
   color: var(--accent); background: var(--card); border: 1px solid var(--line);
-  font-weight: 700; font-size: 0.95rem; text-decoration: none;
+  transition: box-shadow .3s, transform .3s;
 }
+.contact:hover { box-shadow: 0 0 0 4px var(--tag-bg), 0 8px 20px -10px var(--accent); transform: translateY(-1px); }
+.contact svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .contact:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 #share .i-done, #share.copied .i-share { display: none; }
 #share.copied .i-done { display: block; }
@@ -416,8 +419,5 @@ footer { animation-delay: 0.16s; }
   color: transparent; -webkit-text-fill-color: transparent; }
 .go .gt { background-image: var(--btn-text); }
 
-/* Very narrow phones: keep share and Contact inside the side margin */
-@media (max-width: 340px) {
-  .brand { gap: 10px; }
-  .contact { padding: 0 12px; font-size: 0.9rem; }
-}
+/* "RentUK: Built with AI" must stay on one line beside the Open button on every phone */
+.app-text .fit1 { font-size: clamp(0.68rem, 3.4vw, 0.92rem); }

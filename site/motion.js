@@ -1,6 +1,6 @@
 // Gentle depth for the home page. Runs only on this device; nothing is sent anywhere.
-// - On computers, the background layers shift slightly with the pointer, and a soft
-//   light follows the pointer over the app cards.
+// - The background layers shift with the pointer on computers, or with a finger touching
+//   or dragging on phones, and a soft light follows the pointer over the app cards.
 // Everything stays still for people who prefer less motion.
 (function () {
   'use strict';
@@ -8,11 +8,11 @@
   var scene = document.querySelector('.scene');
 
   if (reduce.matches) return;
-  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // Pointer depth: layers move at different speeds, like looking into the scene.
   var tx = 0, ty = 0, queued = false;
-  window.addEventListener('pointermove', function (e) {
+  function depth(e) {
     tx = (e.clientX / window.innerWidth) * 2 - 1;
     ty = (e.clientY / window.innerHeight) * 2 - 1;
     if (!queued && scene) {
@@ -23,10 +23,12 @@
         queued = false;
       });
     }
-  }, { passive: true });
+  }
+  window.addEventListener('pointermove', depth, { passive: true });
+  window.addEventListener('pointerdown', depth, { passive: true });
 
   // Soft light that follows the pointer on the app cards.
-  document.querySelectorAll('.app').forEach(function (card) {
+  if (fine) document.querySelectorAll('.app').forEach(function (card) {
     card.addEventListener('pointermove', function (e) {
       var b = card.getBoundingClientRect();
       card.style.setProperty('--mx', (e.clientX - b.left) + 'px');
