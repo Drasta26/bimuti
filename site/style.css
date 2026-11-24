@@ -29,33 +29,7 @@
   --card-light: rgba(255, 181, 71, 0.28);
   --silk-1: #ffd6a5; --silk-2: #ffb3c7; --silk-3: #c9c2ff; --silk-opacity: .55;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #2a1036;
-    --glow-1: rgba(255, 107, 74, 0.32);
-    --glow-2: rgba(232, 69, 139, 0.30);
-    --card: rgba(255, 255, 255, 0.08);
-    --card-hover: rgba(255, 255, 255, 0.13);
-    --line: rgba(255, 255, 255, 0.14);
-    --text: #fff3ee;
-    --muted: #f3c9bd;
-    --accent: #ffb547;
-    --teal: #ffcd66;
-    --tag-bg: rgba(255, 255, 255, 0.12);
-    --headline: #b4adff;
-    --wordmark: linear-gradient(120deg, #ff7c5a, #ee6fa3 55%, #f6aecb);
-    --beta: #c9c4ff;
-    --beta-bg: rgba(180, 173, 255, 0.16);
-    --tag-text: linear-gradient(120deg, #ff7c5a, #ee6fa3 55%, #b4adff);
-    --aur-1: rgba(255, 107, 74, 0.34);
-    --aur-2: rgba(232, 69, 139, 0.32);
-    --aur-3: rgba(122, 42, 110, 0.85);
-    --shine: #ffffff;
-    --card-light: rgba(255, 124, 90, 0.20);
-    --silk-1: #6b2a5e; --silk-2: #a8355f; --silk-3: #3a2a8a; --silk-opacity: .6;
-      --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
-  }
-}
+/* Always the light theme, whatever the phone or computer is set to (owner's choice). */
 
 * { box-sizing: border-box; }
 html { height: 100%; -webkit-text-size-adjust: 100%; }
